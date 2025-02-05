@@ -65,6 +65,9 @@ case "$1" in
         # Add core types mount separately (special case)
         CMD="$CMD -v \"$(pwd)/packages/core/types:/app/packages/core/types\""
 
+        # add environment variables
+        CMD="$CMD -e CHARACTER_PATH='/app/characters/c3po.character.json'"
+
         # Add container name and image
         CMD="$CMD --name eliza eliza"
 

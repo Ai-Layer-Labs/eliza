@@ -53,7 +53,17 @@ export function createApiRouter(
 ) {
     const router = express.Router();
 
-    router.use(cors());
+    router.use(cors({
+                origin: [
+                    'http://localhost:5173',
+                    'http://localhost:3000',
+                    'https://interface.thinkagents.ai',
+                    'https://thinkagent.thinkagents.ai'
+                ],
+                methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+                allowedHeaders: ['Content-Type', 'Authorization'],
+                credentials: true
+            }));
     router.use(bodyParser.json());
     router.use(bodyParser.urlencoded({ extended: true }));
     router.use(

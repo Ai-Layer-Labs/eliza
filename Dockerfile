@@ -31,6 +31,8 @@ RUN pnpm install \
 # Create a new stage for the final image
 FROM node:23.3.0-slim
 
+ENV CHARACTER_PATH=""
+
 # Install runtime dependencies if needed
 RUN npm install -g pnpm@9.4.0 && \
     apt-get update && \
@@ -51,5 +53,7 @@ COPY --from=builder /app/packages ./packages
 COPY --from=builder /app/scripts ./scripts
 COPY --from=builder /app/characters ./characters
 
+RUN chmod +x /app/scripts/entrypoint.sh
+
 # Set the command to run the application
-CMD ["pnpm", "start"]
+ENTRYPOINT "/app/scripts/entrypoint.sh"
