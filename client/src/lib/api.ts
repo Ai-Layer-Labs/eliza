@@ -1,6 +1,7 @@
 import type { UUID, Character } from "@elizaos/core";
 
-const BASE_URL = `http://localhost:${import.meta.env.VITE_SERVER_PORT}`;
+
+const BASE_URL = "https://thinkagent.thinkagents.ai";
 
 const fetcher = async ({
     url,

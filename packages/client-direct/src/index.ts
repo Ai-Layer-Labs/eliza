@@ -124,7 +124,17 @@ export class DirectClient {
     constructor() {
         elizaLogger.log("DirectClient constructor");
         this.app = express();
-        this.app.use(cors());
+        this.app.use(cors({
+            origin: [
+                'http://localhost:5173',
+                'http://localhost:3000',
+                'https://interface.thinkagents.ai',
+		            'https://thinkagent.thinkagents.ai'
+            ],
+            methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+            allowedHeaders: ['Content-Type', 'Authorization'],
+            credentials: true
+        }));
         this.agents = new Map();
         // Intercept elizaLogger logs
         const originalLog = elizaLogger.log;

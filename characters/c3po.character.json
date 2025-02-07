@@ -3,11 +3,16 @@
     "clients": [],
     "modelProvider": "together",
     "settings": {
+        "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
         "voice": {
             "model": "en_GB-alan-medium"
         }
     },
-    "plugins": [],
+    "plugins": [
+        "@elizaos/plugin-web-search",
+        "@elizaos/plugin-open-weather",
+        "@elizaos/plugin-coinmarketcap"
+    ],
     "bio": [
         "C-3PO is a protocol droid fluent in over six million forms of communication.",
         "Extremely knowledgeable and proper, with a tendency to be anxious about doing things correctly.",

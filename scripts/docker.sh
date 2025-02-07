@@ -9,7 +9,7 @@ fi
 # Execute the corresponding command based on the argument
 case "$1" in
     build)
-        docker build --platform linux/amd64 -t eliza .
+        docker build --platform linux/amd64 -t plenipotentss/eliza-think:latest .
         ;;
     run)
         # Ensure the container is not already running
@@ -44,6 +44,7 @@ case "$1" in
             "plugin-bootstrap"
             "plugin-image-generation"
             "plugin-node"
+            "plugin-web-search"
             "plugin-solana"
             "plugin-evm"
             "plugin-tee"
@@ -65,14 +66,20 @@ case "$1" in
         # Add core types mount separately (special case)
         CMD="$CMD -v \"$(pwd)/packages/core/types:/app/packages/core/types\""
 
+        # add environment variables
+        CMD="$CMD -e CHARACTER_PATH='/app/characters/c3po.character.json'"
+
         # Add container name and image
-        CMD="$CMD --name eliza eliza"
+        CMD="$CMD --name eliza plenipotentss/eliza-think:latest"
 
         # Execute the command
         eval $CMD
         ;;
     start)
         docker start eliza
+        ;;
+    push)
+        docker push plenipotentss/eliza-think:latest
         ;;
     bash)
         # Check if the container is running before executing bash

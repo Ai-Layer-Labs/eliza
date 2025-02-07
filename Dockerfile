@@ -46,7 +46,9 @@ RUN pnpm run build && pnpm prune --prod
 # Final runtime image
 FROM node:23.3.0-slim
 
-# Install runtime dependencies
+ENV CHARACTER_PATH=""
+
+# Install runtime dependencies if needed
 RUN npm install -g pnpm@9.4.0 && \
     apt-get update && \
     apt-get install -y \
@@ -72,8 +74,7 @@ COPY --from=builder /app/packages ./packages
 COPY --from=builder /app/scripts ./scripts
 COPY --from=builder /app/characters ./characters
 
-# Expose necessary ports
-EXPOSE 3000 5173
+RUN chmod +x /app/scripts/entrypoint.sh
 
-# Command to start the application
-CMD ["sh", "-c", "pnpm start & pnpm start:client"]
+# Set the command to run the application
+ENTRYPOINT "/app/scripts/entrypoint.sh"
